@@ -1,14 +1,12 @@
-# Audio
+git add# Audio
 PRODUCT_PROPERTY_OVERRIDES += \
     af.fast_track_multiplier=1 \
     audio.deep_buffer.media=true \
     audio.offload.min.duration.secs=30 \
-    persist.bluetooth.a2dp_offload.disabled=false \
     persist.vendor.audio.ras.enabled=false \
     persist.vendor.bt.aac_frm_ctl.enabled=true \
     persist.vendor.audio_hal.dsp_bit_width_enforce_mode=24 \
     ro.af.client_heap_size_kbyte=7168 \
-    ro.bluetooth.a2dp_offload.supported=true \
     ro.vendor.audio.sdk.fluencetype=none \
     ro.vendor.audio.sdk.ssr=false \
     vendor.audio.adm.buffering.ms=2 \
@@ -34,8 +32,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     vendor.voice.path.for.pcm.voip=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.audio.feature.a2dp_offload.enable=true \
+    vendor.audio.feature.a2dp_offload.enable=false \
     vendor.audio.feature.afe_proxy.enable=true \
+    persist.bluetooth.a2dp_offload.disabled=true \
     vendor.audio.feature.anc_headset.enable=true \
     vendor.audio.feature.audiozoom.enable=false \
     vendor.audio.feature.battery_listener.enable=false \
@@ -91,14 +90,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.bluetooth.a2dp_offload.cap=sbc-aac-aptx-aptxhd-ldac \
-    persist.bluetooth.a2dp_offload.disabled=false \
     persist.vendor.qcom.bluetooth.a2dp_offload_cap=sbc-aptx-aptxtws-aptxhd-aac-ldac \
     persist.vendor.qcom.bluetooth.aac_vbr_ctl.enabled=false \
-    persist.vendor.qcom.bluetooth.enable.splita2dp=true \
+    persist.vendor.qcom.bluetooth.enable.splita2dp=false \
     persist.vendor.qcom.bluetooth.scram.enabled=true \
     persist.vendor.qcom.bluetooth.soc=cherokee \
     persist.vendor.qcom.bluetooth.twsp_state.enabled=false \
-    ro.bluetooth.a2dp_offload.supported=true \
+    ro.bluetooth.a2dp_offload.supported=false \
     ro.vendor.bluetooth.wipower=false \
     vendor.qcom.bluetooth.soc=cherokee
 
@@ -148,10 +146,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.egl.callstack=1 \
     debug.egl.hw=0 \
     debug.mdpcomp.logs=0 \
-    debug.sf.disable_backpressure=1 \
-    debug.sf.enable_hwc_vds=1 \
+    debug.sf.disable_backpressure=0 \
     debug.sf.hw=1 \
-    debug.sf.latch_unsignaled=1 \
+    debug.sf.latch_unsignaled=0 \
     persist.sys.sf.color_saturation=1.0 \
     ro.opengles.version=196610 \
     ro.vendor.display.cabl=0 \
@@ -179,6 +176,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.volte_avail_ovr=1 \
     persist.dbg.vt_avail_ovr=0 \
+    persist.vendor.radio.mt_sms_ack=30 \
     persist.dbg.wfc_avail_ovr=1
 
 # IORap app launch prefetching using Perfetto traces and madvise
@@ -229,6 +227,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.rat_on=combine \
     persist.vendor.radio.sib16_support=1
 
+# Recovery
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.binary_xml=false
+
 # Sensor
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.sdk.sensors.gestures=false \
@@ -257,9 +259,22 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.has_HDR_display=true \
     ro.surface_flinger.wcg_composition_dataspace=143261696
 
+# SoC
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.soc.manufacturer=Qualcomm \
+    ro.soc.model=SM6125
+
 # Time
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.delta_time.enable=true
+
+# Usb
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.vendor.usb.config.extra=none \
+    vendor.usb.dpl.inst.name=dpl \
+    vendor.usb.rmnet.func.name=rmnet_bam \
+    vendor.usb.rmnet.inst.name=rmnet \
+    vendor.usb.rndis.func.name=rndis_bam
 
 # Wi-Fi
 PRODUCT_PROPERTY_OVERRIDES += \

@@ -38,7 +38,7 @@
 #define START_IDX       "start_idx"
 
 #define MAX_LED_BRIGHTNESS    255
-#define MAX_LCD_BRIGHTNESS    4095
+#define MAX_BRIGHTNESS "max_brightness"
 
 /*
  * 8 duty percent steps.
@@ -72,6 +72,22 @@ static void set(std::string path, int value) {
     set(path, std::to_string(value));
 }
 
+/*
+ * Read max brightness from path and close file.
+ */
+static int getMaxBrightness(std::string path) {
+    std::ifstream file(path);
+    int value;
+
+    if (!file.is_open()) {
+        ALOGW("failed to read from %s", path.c_str());
+        return 0;
+    }
+
+    file >> value;
+    return value;
+}
+
 static uint32_t getBrightness(const LightState& state) {
     uint32_t alpha, red, green, blue;
 
@@ -84,19 +100,21 @@ static uint32_t getBrightness(const LightState& state) {
     blue = state.color & 0xFF;
 
     /*
-     * Scale RGB brightness if Alpha brightness is not 0xFF.
+     * Scale RGB brightness using Alpha brightness.
      */
-    if (alpha != 0xFF) {
-        red = red * alpha / 0xFF;
-        green = green * alpha / 0xFF;
-        blue = blue * alpha / 0xFF;
-    }
+    red = red * alpha / 0xFF;
+    green = green * alpha / 0xFF;
+    blue = blue * alpha / 0xFF;
 
     return (77 * red + 150 * green + 29 * blue) >> 8;
 }
 
 static inline uint32_t scaleBrightness(uint32_t brightness, uint32_t maxBrightness) {
-    return brightness * maxBrightness / 0xFF;
+    if (brightness == 0) {
+        return 0;
+    }
+
+    return (brightness - 1) * (maxBrightness - 1) / (0xFF - 1) + 1;
 }
 
 static inline uint32_t getScaledBrightness(const LightState& state, uint32_t maxBrightness) {
@@ -104,7 +122,7 @@ static inline uint32_t getScaledBrightness(const LightState& state, uint32_t max
 }
 
 static void handleBacklight(const LightState& state) {
-    uint32_t brightness = getScaledBrightness(state, MAX_LCD_BRIGHTNESS);
+    uint32_t brightness = getScaledBrightness(state, getMaxBrightness(LCD_LED MAX_BRIGHTNESS));
     set(LCD_LED BRIGHTNESS, brightness);
 }
 
