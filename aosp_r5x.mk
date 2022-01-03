@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018-2019 The LineageOS Project
+# Copyright (C) 2018-2019 The HornbillOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 
-# Inherit some common Lighthouse stuff
-$(call inherit-product, vendor/lighthouse/config/common_full_phone.mk)
+# Inherit some common aosp stuff
+$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
 # Inherit from r5x device
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
@@ -32,11 +32,13 @@ TARGET_INCLUDE_LIVE_WALLPAPERS := false
 PRODUCT_BRAND := Realme
 PRODUCT_DEVICE := r5x
 PRODUCT_MANUFACTURER := Realme
-PRODUCT_NAME := lighthouse_r5x
+PRODUCT_NAME := aosp_r5x
 PRODUCT_MODEL := Realme 5 Series
 WITH_GAPPS := true
-LIGHTHOUSE_BUILD_TYPE := OFFICIAL
+HornbillOS_BUILD_TYPE := UNOFFICIAL
 TARGET_FACEUNLOCK_SUPPORTED := true
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.HornbillOS.maintainer=HardBricked_69
 
 PRODUCT_GMS_CLIENTID_BASE := android-realme
 
