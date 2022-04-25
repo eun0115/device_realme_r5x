@@ -141,6 +141,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.hw=1 \
     debug.sf.latch_unsignaled=0 \
     persist.sys.sf.color_saturation=1.0 \
+    debug.sf.treat_170m_as_sRGB=1 \
     ro.opengles.version=196610 \
     ro.vendor.display.cabl=0 \
     ro.hardware.vulkan=adreno \
