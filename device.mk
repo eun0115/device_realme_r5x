@@ -29,7 +29,8 @@ PRODUCT_ENFORCE_RRO_TARGETS := *
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
+    $(LOCAL_PATH) \
+  vendor/nxp/opensource/pn5xx
 
 # Vendor properties
 -include $(LOCAL_PATH)/vendor_props.mk
@@ -319,6 +320,19 @@ PRODUCT_PACKAGES += \
     android.system.net.netd@1.0 \
     libandroid_net \
     netutils-wrapper-1.0
+
+# NFC
+PRODUCT_PACKAGES += \
+    libnfc-nci.conf \
+    libnfc-nxp_RF.conf \
+    libnfc-nxp.conf
+
+PRODUCT_PACKAGES += \
+    com.android.nfc_extras \
+    com.gsma.services.nfc \
+    NfcNci \
+    SecureElement \
+    Tag
 
 # OMX
 PRODUCT_PACKAGES += \
